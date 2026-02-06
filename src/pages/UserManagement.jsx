@@ -11,10 +11,15 @@ export default function UserManagement() {
   }
 
   async function deleteUser(id) {
-    await fetch(`http://localhost:3000/api/user/${id}`, {
-      method: "DELETE",
+    const res = await fetch(`http://localhost:3000/api/user/${id}`, {
+        method: "DELETE",
     });
-    loadUsers();
+
+    if (res.ok) {
+        await loadUsers();   
+    } else {
+        alert("Delete failed");
+    }
   }
 
   useEffect(() => {

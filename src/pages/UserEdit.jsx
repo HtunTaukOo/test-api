@@ -12,16 +12,24 @@ export default function UserEdit() {
   const passwordRef = useRef();
   const statusRef = useRef();
 
-  async function loadUser() {
+    async function loadUser() {
     const res = await fetch(`http://localhost:3000/api/user/${id}`);
+
+    if (!res.ok) {
+        alert("Failed to load user");
+        return;
+    }
+
     const data = await res.json();
+    if (!data) return;
 
     usernameRef.current.value = data.username || "";
     emailRef.current.value = data.email || "";
     firstnameRef.current.value = data.firstname || "";
     lastnameRef.current.value = data.lastname || "";
     statusRef.current.value = data.status || "ACTIVE";
-  }
+    }
+
 
   async function updateUser() {
     const body = {
